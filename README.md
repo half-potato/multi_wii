@@ -1,7 +1,8 @@
 ![Altax](https://altax.net/images/altax.png "Altax")
 
-# pyMultiWii
+# multi_wii for ROS, a fork of pyMultiWii
 
+#TODO Update README.md
 
 Handles the MultiWii Serial Protocol to send/receive data from boards.
 
