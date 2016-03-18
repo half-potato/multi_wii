@@ -4,19 +4,23 @@ from pyMultiwii import MultiWii
 import time
 import rospy
 from std_msgs.msg import String
+from multi_wii.msg import IMU
+
+#board = MultiWii(usb)
 
 def talker():
     pub = rospy.Publisher("IMU", String, queue_size=50)
     rospy.init_node("IMU", anonymous=False)
     rate = rospy.Rate(50)
     while not rospy.is_shutdown():
+        data = [0,1,2,3]
+        rospy.loginfo(data)#board.getData(MultiWii.ATTITUDE))
+        pub.publish(data)
+        rate.sleep()
 
+if __name__ == "__main__":
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
 
-board = MultiWii(usb)
-try:
-	board.arm()
-	print "Board is armed now!"
-	time.sleep(3)
-	board.disarm()
-except Exception, error:
-	print "Error: " + str(error)
