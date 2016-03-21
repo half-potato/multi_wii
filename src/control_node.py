@@ -6,7 +6,7 @@ import rospy
 from std_msgs.msg import String
 from multi_wii.msg import IMU
 
-#board = MultiWii(usb)
+board = MultiWii("/dev/ttyUSB0")
 
 def talker():
     pub = rospy.Publisher("IMU", String, queue_size=50)

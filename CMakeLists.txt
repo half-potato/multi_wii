@@ -10,7 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
 	FILES
 	IMU.msg
-	RC.msg
+	Radio.msg
+	Attitude.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -65,7 +66,8 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES multi_wii
-	CATKIN_DEPENDS rospy std_msgs
+DEPENDS rospy std_msgs
+CATKIN-DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -131,11 +133,9 @@ include_directories(
 # )
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+#install(FILES
+	 #myfile1 myfile2 DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+	 #)
 
 #############
 ## Testing ##
