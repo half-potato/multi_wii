@@ -153,6 +153,11 @@ class MultiWii:
             #print "("+str(error)+")\n\n"
             pass
 
+    def holdStick(self, data, seconds):
+        start = time.time()
+        while (time.time() - start) < seconds:
+            self.sendCMD(len(data) * 2, MultiWii.SET_RAW_RC, data)
+
     """Function to arm / disarm """
     """
     Modification required on Multiwii firmware to Protocol.cpp in evaluateCommand:
@@ -167,7 +172,7 @@ class MultiWii:
     def arm(self):
         timer = 0
         start = time.time()
-        while timer < 0.5:
+        while timer < 1:
             data = [1500,1500,2000,1000]
             self.sendCMD(8,MultiWii.SET_RAW_RC,data)
             time.sleep(0.05)
@@ -177,7 +182,7 @@ class MultiWii:
     def disarm(self):
         timer = 0
         start = time.time()
-        while timer < 0.5:
+        while timer < 1:
             data = [1500,1500,1000,1000]
             self.sendCMD(8,MultiWii.SET_RAW_RC,data)
             time.sleep(0.05)
@@ -229,10 +234,9 @@ class MultiWii:
             else:
                 return "No return error!"
         except Exception, error:
-            #print error
+            print error
             pass
 
-    """Function to receive a data packet from the board. Note: easier to use on threads"""
     def getDataInf(self, cmd):
         while True:
             try:
