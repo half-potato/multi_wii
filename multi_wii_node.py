@@ -1,22 +1,27 @@
 #!/usr/bin/env python
 
 from pyMultiwii import MultiWii
+from __future__ import print_function
 import time
 import rospy
 from std_msgs.msg import String
 
-def talker():
-    pub = rospy.Publisher("IMU", String, queue_size=50)
-    rospy.init_node("IMU", anonymous=False)
-    rate = rospy.Rate(50)
-    while not rospy.is_shutdown():
+board = MultiWii("tty1/usb")
 
+def handle_controls(req):
+    print("I've got it")
 
-board = MultiWii(usb)
+def server():
+    rospy.init_node("control_server")
+    s = rospy.Service("controls", 
+'''
 try:
 	board.arm()
-	print "Board is armed now!"
+	print("Board is armed now!")
 	time.sleep(3)
 	board.disarm()
 except Exception, error:
-	print "Error: " + str(error)
+	print("Error: " + str(error))
+'''
+
+print(rospy.get_param("usb"))
